@@ -304,6 +304,34 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    slideShowArrowLeft: {
+        position: 'absolute',
+        transform: 'rotateY(180deg)',
+        width: '10%',
+        height: '10%',
+        left: '5%',
+        zIndex: 500,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        transition: '0.1s linear',
+    },
+    slideShowArrowRigth: {
+        position: 'absolute',
+        transform: 'rotateY(0deg)',
+        width: '10%',
+        height: '10%',
+        right: '5%',
+        zIndex: 500,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        transition: '0.1s linear',
+    },
     radioWrapper: {
         position: 'relative',
         bottom: '-35%',
@@ -339,6 +367,26 @@ function LandingPage(props) {
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
       };
+
+    const sideSetRight = () => {
+        if (selectedValue === 'a'){
+            setSelectedValue('b');
+        } else if (selectedValue === 'b'){
+            setSelectedValue('c');
+        } else {
+            setSelectedValue('a');
+        }
+    };
+    
+    const sideSetLeft = () => {
+        if (selectedValue === 'c'){
+            setSelectedValue('b');
+        } else if (selectedValue === 'b'){
+            setSelectedValue('a');
+        } else {
+            setSelectedValue('c');
+        }
+    };
 
     window.addEventListener('scroll', () => {
         document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
@@ -413,11 +461,34 @@ function LandingPage(props) {
                 <div className={'page-2'}>
                     <div className={classes.rootSlideShow}>
                         <div className={classes.secondContentWrapper}>
+                            <div className={classes.slideShowArrowLeft}>
+                                <div 
+                                    className='arrow-btn'
+                                    onClick = {() => {
+                                        sideSetLeft();
+                                    }}
+                                >
+                                    <div className='arrow-arrow 1'></div>
+                                    <div className='arrow-arrow 2'></div>
+                                </div>
+                            </div>
+                            <div 
+                                className={classes.slideShowArrowRigth}
+                                onClick = {() => {
+                                    sideSetRight();
+                                }}
+                            >
+                                <div className='arrow-btn'>
+                                    <div className='arrow-arrow 1'></div>
+                                    <div className='arrow-arrow 2'></div>
+                                </div>
+                            </div>
                             <Grow 
                                 in={selectedValue === 'a'}
                                 {...((selectedValue === 'a') ? { timeout: 1000 } : {})}
                             >
                                 <Paper elevation={4} className={classes.secondContent}>
+                                    <Typography>geo stuff</Typography>
                                 </Paper>
                             </Grow>
                             <Grow 
@@ -425,6 +496,7 @@ function LandingPage(props) {
                                 {...((selectedValue === 'b') ? { timeout: 1000 } : {})}
                             >
                                 <Paper elevation={4} className={classes.secondContent}>
+                                    <Typography>music stuff</Typography>
                                 </Paper>
                             </Grow>
                             <Grow 
@@ -432,6 +504,7 @@ function LandingPage(props) {
                                 {...((selectedValue === 'c') ? { timeout: 1000 } : {})}
                             >
                                 <Paper elevation={4} className={classes.secondContent}>
+                                    <Typography>team/party stuff</Typography>
                                 </Paper>
                             </Grow>
                         </div>
