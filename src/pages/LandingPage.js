@@ -171,17 +171,21 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]:{
             right: '10%',
         },
-        animation: `$infoCloudWrapperAnimate 3.5s ${theme.transitions.easing.easeInOut}`,
+        animation: `$infoCloudWrapperAnimate 10s ${theme.transitions.easing.easeInOut}`,
     },
     '@keyframes infoCloudWrapperAnimate': {
         '0%': {
             opacity: 1,
             bottom: '-20%',
         },
-        '40%': {
-            bottom: '15%',
+        '50%': {
+            opacity: 1,
+            bottom: '-20%',
         },
         '60%': {
+            bottom: '15%',
+        },
+        '70%': {
             bottom: '12%',
         },
         '80%': {
@@ -257,14 +261,14 @@ const useStyles = makeStyles((theme) => ({
     },
     geoLogo: {
         position: 'relative', 
-        height: '90px', 
+        height: '110px', 
         width: '90px',
         margin: 0,
     },
     geoLogoArrow: {
         position: 'relative',
         margin: 0,
-        height: '90px', 
+        height: '110px', 
         width: '10px',
     },
     logoWrapper: {
@@ -354,14 +358,52 @@ const useStyles = makeStyles((theme) => ({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    reviewBackground: {
+        position: 'relative',
+        backgroundColor: '#35383d',
+        borderRadius: 20,
+        padding: 0,
+        top: '5%',
+        overflow: 'scroll',
+        overflowX: 'hidden',
+        width: '90%',
+        height: '70vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
 }));
 
 function LandingPage(props) {
-
     const [selectedValue, setSelectedValue] = React.useState('a');
+    const [chat, setChat] = useState([
+    {
+        message: "vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!",
+        rating: 0,
+        date: "",
+    },
+    {
+        message: "horrid!",
+        rating: 0,
+        date: "",
+    },
+    {
+        message: "AUWUfl",
+        rating: 0,
+        date: "",
+    },
+    {
+        message: "penis",
+        rating: 100000000000000000000000000000000000000000000000000000000000000000000000000000000,
+        date: "",
+    },
+]);
+
     const secondPageReferance = useRef(null);
     const thirdPageReferance = useRef(null);
+    const firstPageReferance = useRef(null);
+    
     const classes = useStyles();
 
     const handleChange = (event) => {
@@ -407,7 +449,15 @@ function LandingPage(props) {
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
-            <Container className={classes.pageBackground}>
+            <div 
+                className='up-man'
+                onClick = {() => {
+                    goToPage(firstPageReferance);
+                }}
+            >
+                <ScrollBtn />
+            </div>
+            <Container ref={firstPageReferance} className={classes.pageBackground}>
                 <div className={'page-1'}>
                     <div className={classes.logoWrapper}>
                         <img src={GeoLogo} className={classes.geoLogo} />
@@ -544,7 +594,44 @@ function LandingPage(props) {
             </Container>
             <Container ref={thirdPageReferance} className={classes.pageBackground}>
                 <div className={'page-3'}>
+                <Paper 
+                    className={classes.reviewBackground} 
+                    elevation={15}
+                >
+                        
+                                {chat.map((message) => (
+                                <Paper 
+                                    elevation={5}
+                                    style={{
+                                        width: "98%",
+                                        backgroundColor: "#4b4f55",
+                                        marginBottom: 5,
+                                        padding: 10,
+                                    }}
+                                >
+                                    <Typography 
+                                        variant="subtitle1" 
+                                        gutterBottom
+                                        style={{ color: "rgb(243, 243, 242)", overflowWrap: "breakWord", wordWrap: "breakWord", overflow: "visible" }}
+                                    >
+                                        {message.message}
+                                    </Typography>
+                                    <Typography 
+                                        variant="body2" 
+                                        color="textSecondary"
+                                    >
+                                        {message.rating}
+                                    </Typography>
+                                    <Typography 
+                                        variant="body2" 
+                                        color="textSecondary"
+                                    >
+                                        {message.date}
+                                    </Typography>
+                                </Paper>
+                                ))}
 
+                    </Paper>
                 </div>
             </Container>
         </div>

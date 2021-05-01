@@ -26,6 +26,41 @@ body {
     }
   }
 
+.up-man {
+    position: fixed;
+    transform: rotateX(180deg);
+    bottom: 10%;
+    right: 150px;
+    z-index: 1000;
+    opacity: 0;
+    animation: show-up-man 1s linear;
+     animation-play-state: paused;
+     animation-delay: calc(var(--scroll) * -3s);
+     animation-iteration-count: 1;
+     animation-fill-mode: both;
+}
+
+@keyframes show-up-man {
+    0% {
+        opacity: 0;
+        bottom: 0%;
+      }
+    70% {
+        opacity: 0.5;
+        bottom: 0%;
+    }
+    100% {
+        opacity: 1;
+        bottom: 10%;
+    }
+}
+
+@media (max-width: 780px) {
+    .up-man {
+        right: 100px;
+    }
+}
+  
 .page-1 {
     position: relative;
     overflow: visible;
@@ -155,7 +190,7 @@ body {
     justify-content: center;
     animation: page-slide-animate-3 1s linear;
      animation-play-state: paused;
-     animation-delay: calc(var(--scroll) * -1s);
+     animation-delay: calc(var(--scroll) * -1.2s);
      animation-iteration-count: 1;
      animation-fill-mode: both;
 
