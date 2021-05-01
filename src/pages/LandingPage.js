@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Divider, } from '@material-ui/core';
 import clsx from 'clsx';
 import './LandingPage.css';
 
@@ -84,11 +84,9 @@ function LandingPage(props) {
             <Container className={classes.DeepBackground}></Container>
             <div className='progress-bar'></div>
             <Container className={classes.PageBackground}>
-                <Container className={'page-wrapper'}>
-                    <Paper className={classes.PageSlideBase1}>
-
-                    </Paper>
-                </Container>
+                <div className={'page-1'}>
+                    
+                </div>
             </Container>
             <Container className={classes.PageBackground}>
             </Container>
