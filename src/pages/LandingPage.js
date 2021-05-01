@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Divider, } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, } from '@material-ui/core';
 import clsx from 'clsx';
 import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
@@ -77,6 +77,50 @@ const useStyles = makeStyles((theme) => ({
         width: '10%',
         height: '8vh',
     },
+    firstIntroTextWrapper: {
+        position: 'absolute',
+        bottom: '50%',
+        left: '10%',
+        padding: 0,
+        width: '50%',
+        height: '8vh',
+        Zindex: 10,
+        [theme.breakpoints.down('sm')]:{
+            left: '10%',
+            width: '90%',
+        },
+    },
+    baseText: {
+        fontFamily: 'Segoe UI',
+        fontSize: 12,
+        color: 'white',
+        wordWrap: 'break-word',
+        width: '90%',
+    },
+    firstIntroHeaderText: {
+        fontFamily: 'Segoe UI',
+        color: 'white',
+        wordWrap: 'break-word',
+        width: '90%',
+        fontSize: 20, 
+        marginBottom: '3%', 
+        fontStyle: 'oblique',
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 12
+        },
+    },
+    firstIntroText: {
+        fontFamily: 'Segoe UI',
+        color: 'white',
+        wordWrap: 'break-word',
+        width: '90%',
+        fontSize: 24,
+        workWap: 'break-word',
+        fontWeight: 1000,
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 16
+        },
+    },
 }));
 
 function LandingPage(props) {
@@ -122,6 +166,14 @@ function LandingPage(props) {
                         }}
                     >
                         <ScrollBtn />
+                    </div>
+                    <div className={classes.firstIntroTextWrapper}>
+                        <Typography className={classes.firstIntroHeaderText}>
+                            give discord a new meaning...
+                        </Typography>
+                        <Typography className={classes.firstIntroText}>
+                            After hours of work, it's finally here. GeoBot is the next step in discord entertainment and fun! With GeoBot you can finally have that enjoyable and interactive experience that is missing from everyday discord servers.
+                        </Typography>
                     </div>
                 </div>
             </Container>

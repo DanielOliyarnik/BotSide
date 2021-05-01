@@ -255,12 +255,12 @@ body {
     text-align: center;
     justify-content: center;
     overflow: visible;
-    font-size: 100px;
+    font-size: 90px;
     z-index: 100;
     transform-style: preserve-3d;
     -webkit-animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
     -moz-animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
-    animation: bannerintro-text 3.2s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: bannerintro-text 3.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @keyframes bannerintro-text {
@@ -277,8 +277,9 @@ body {
         font-size: 10px;
     }
     100% {
-        font-size: 100px;
+        font-size: 90px;
         padding-top: 0%;
         opacity: 1;
     }
 }
+
