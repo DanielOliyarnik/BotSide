@@ -137,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
     },
     inforCloudWrapperWrapper: {
         position: 'absolute',
+        opacity: 0,
         bottom: '12%',
         right: '28%',
         width: '15%',
@@ -153,13 +154,22 @@ const useStyles = makeStyles((theme) => ({
     },
     '@keyframes infoCloudWrapperAnimate': {
         '0%': {
+            opacity: 1,
             bottom: '-20%',
         },
+        '40%': {
+            bottom: '15%',
+        },
         '60%': {
+            bottom: '12%',
+        },
+        '80%': {
+            opacity: 1,
             bottom: '15%',
         },
         '100%': {
-            bottom: '12%',
+            opacity: 0,
+            bottom: '-20%',
         }
     },
     infoCloudWrapper: {
@@ -177,15 +187,6 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         [theme.breakpoints.down('sm')]:{
             fontSize: 14,
-        },
-        animation: `$infoCloudAnimate 1s infinite alternate ${theme.transitions.easing.easeInOut}`,
-    },
-    '@keyframes infoCloudAnimate': {
-        '0%': {
-            bottom: '4%',
-        },
-        '100%': {
-            bottom: '2%',
         },
     },
     infoCloud: {
@@ -275,7 +276,7 @@ const useStyles = makeStyles((theme) => ({
     rootSlideShow: {
         position: 'absolute',
         width: '90%',
-        height: '80%',
+        height: '100%',
         paddingLeft: '5%',
         display: 'flex',
         alignContent: 'center',
@@ -299,7 +300,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         marginBottom: '5%',
         height: '70%',
-        width: '60%',
+        width: '80%',
         display: 'flex',
         alignContent: 'center',
         alignItems: 'center',
