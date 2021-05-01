@@ -3,6 +3,8 @@ import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, } fro
 import clsx from 'clsx';
 import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
+import infoCloud from '../assets/Cloud.png';
+import infoArrow from '../assets/SocialArrow.png';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
@@ -121,6 +123,77 @@ const useStyles = makeStyles((theme) => ({
             fontSize: 16
         },
     },
+    inforCloudWrapperWrapper: {
+        position: 'absolute',
+        bottom: '12%',
+        right: '28%',
+        width: '15%',
+        hight: '15%',
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        [theme.breakpoints.down('sm')]:{
+            right: '10%',
+        },
+        animation: `$infoCloudWrapperAnimate 3.5s ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes infoCloudWrapperAnimate': {
+        '0%': {
+            bottom: '-20%',
+        },
+        '60%': {
+            bottom: '15%',
+        },
+        '100%': {
+            bottom: '12%',
+        }
+    },
+    infoCloudWrapper: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        transform: 'rotate(20deg)',
+        zIndex: 10,
+        fontWeight: 1000,
+        fontFamily: 'Segoe UI',
+        fontSize: 24,
+        color: 'black',
+        [theme.breakpoints.down('sm')]:{
+            fontSize: 14,
+        },
+        animation: `$infoCloudAnimate 1s infinite alternate ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes infoCloudAnimate': {
+        '0%': {
+            bottom: '4%',
+        },
+        '100%': {
+            bottom: '2%',
+        },
+    },
+    infoCloud: {
+        position: 'absolute',
+        width: '200px',
+        hight: '200px',
+        zIndex: -1,
+        [theme.breakpoints.down('sm')]:{
+            width: '100px',
+            hight: '100px',
+        },
+    },
+    infoArrow: {
+        position: 'absolute',
+        bottom: '5%',
+        right: '38%',
+        width: '5%',
+        hight: '5%',
+        transform: 'rotate(190deg)',
+    },
 }));
 
 function LandingPage(props) {
@@ -173,6 +246,12 @@ function LandingPage(props) {
                         </Typography>
                         <Typography className={classes.firstIntroText}>
                             After hours of work, it's finally here. GeoBot is the next step in discord entertainment and fun! With GeoBot you can finally have that enjoyable and interactive experience that is missing from everyday discord servers.
+                        </Typography>
+                    </div>
+                    <div className={classes.inforCloudWrapperWrapper}>
+                        <Typography className={classes.infoCloudWrapper}>
+                            Learn More!
+                            <img src={infoCloud} className={classes.infoCloud}/>
                         </Typography>
                     </div>
                 </div>

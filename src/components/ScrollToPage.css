@@ -21,7 +21,7 @@ body {
 }
 
 .scroll-btn:hover {
-    background-color: rgb(10, 55, 153);
+    background-color: rgb(9, 37, 99);
     opacity: 0.9;
     border-radius: 90%;
     padding-bottom: 0.5%;
@@ -57,6 +57,10 @@ body {
     width: 5px;
     height: 32px;
     left: 9px;
+}
+
+.scroll-btn:hover .scroll-arrow {
+    background-color: rgb(247, 247, 233);
 }
 
 .scroll-btn:hover .scroll-arrow:nth-child(1) {
