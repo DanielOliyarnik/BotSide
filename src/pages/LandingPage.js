@@ -77,6 +77,27 @@ const useStyles = makeStyles((theme) => ({
         padding: 0,
         width: '20%',
         height: '8vh',
+        '&:hover': {
+            "& $span": {
+                opacity: 1,
+            },
+         },
+    },
+    span: {
+        position: 'absolute',
+        color: 'ivory',
+        left: '-10%',
+        bottom: '100%',
+        width: '120px',
+        height: '4vh',
+        backgroundColor: '#35383d',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        opacity: 0,
+        borderRadius: '45px',
+        zIndex: 1000,
+        transition: `all 0.3s ${theme.transitions.easing.easeInOut}`,
     },
     SecondArrowBtn: {
         position: 'absolute',
@@ -207,7 +228,7 @@ const useStyles = makeStyles((theme) => ({
         hight: '5%',
         transform: 'rotate(190deg)',
     },
-    sendBtn: {
+    inviteBtn: {
         position: 'absolute',
         right: '15%',
         bottom: '45%',
@@ -292,7 +313,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         width: '100%',
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
-        backgroundImage: 'linear-gradient(to bottom right, #3490e0, rgba(255, 255, 255, 0.5))',
+        backgroundImage: 'linear-gradient(to bottom right, #3490e0, #217050)',
         borderRadius: 15,
         zIndex: 100,
     },
@@ -361,6 +382,7 @@ function LandingPage(props) {
                             goToPage(secondPageReferance);
                         }}
                     >
+                        <span className={classes.span}>{'Learn More'}</span>
                         <ScrollBtn />
                     </div>
                     <div className={classes.firstIntroTextWrapper}>
@@ -379,7 +401,7 @@ function LandingPage(props) {
                     </div>
                     <form action={"https://discord.com/oauth2/authorize?client_id=837857979486568458&permissions=8&scope=bot"}>
                         <Button
-                            className={classes.sendBtn}
+                            className={classes.inviteBtn}
                             type='submit'
                         >
                             Intive GeoBot

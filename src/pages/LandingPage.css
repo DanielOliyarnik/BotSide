@@ -351,23 +351,3 @@ body {
         padding-top: 10%;
     }
 }
-
-.span {
-    position: absolute;
-    color: ivory;
-    left: 35px;
-    width: 120px;
-    height: 4vh;
-    background-color: #35383d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    border-radius: 45px;
-    z-index: 1;
-    transition: all 0.3s ease-in-out;
-}
-
-.scroll-btn:hover . {
-   
-}
