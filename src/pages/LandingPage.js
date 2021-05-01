@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, } from '@material-ui/core';
 import clsx from 'clsx';
+import './LandingPage.css';
 
 const useStyles = makeStyles((theme) => ({
     DeepBackground: {
-        background: 'linear-gradient( 50deg, #0e21b0, #6e0920)',
-        backgroundSize: '400% 400%',
+        background: 'linear-gradient( 50deg, #0e21b0, #218237)',
+        backgroundSize: '300% 300%',
         position: 'absolute',
         overflow: 'hidden',
         top: 0,
@@ -32,14 +33,42 @@ const useStyles = makeStyles((theme) => ({
             backgroundSize: '120% 200%',
         },
     },
+    PageBackground: {
+        position: 'relative',
+        overflow: 'hidden',
+        top: 0,
+        left: 0,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        padding: 0,
+        maxWidth: '100%',
+        height: '100vh',
+        zIndex: 1,
+    },
 }));
 
 function LandingPage(props) {
+
+
     const classes = useStyles();
 
+    window.addEventListener('scroll', () => {
+        document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
+      }, false);
+
     return(
-        <div style={{ margin: 0, padding: 0, zIndex: '-10', }}>
+        <div>
             <Container className={classes.DeepBackground}></Container>
+            <div className='progress-bar'></div>
+            <Container className={classes.PageBackground}>
+
+            </Container>
+
+            <Container className={classes.PageBackground}>
+
+            </Container>
         </div>
     );
 }
