@@ -53,7 +53,6 @@ body {
     0% {  
         transform: rotateY(80deg);
         left: -35%;
-        top: 10%;
         opacity: 0;
         border-radius: 300px;
         height: 85vh;

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
@@ -194,6 +195,33 @@ const useStyles = makeStyles((theme) => ({
         hight: '5%',
         transform: 'rotate(190deg)',
     },
+    sendBtn: {
+        position: 'absolute',
+        right: '15%',
+        bottom: '45%',
+        backgroundColor: '#1a588a',
+        borderRadius: 3,
+        border: 0,
+        width: '200px',
+        height: '65px',
+        transition: '0.3s', 
+        fontWeight: 700,
+        fontFamily: 'Segoe UI',
+        fontSize: 16,
+        color: 'black',
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: '#384396',
+            fontWeight: 1000,
+        },
+        [theme.breakpoints.down('xs')]:{
+            width: '100px',
+            height: '55px',
+            bottom: '15%',
+            left: '12%',
+        },
+    },
 }));
 
 function LandingPage(props) {
@@ -254,6 +282,14 @@ function LandingPage(props) {
                             <img src={infoCloud} className={classes.infoCloud}/>
                         </Typography>
                     </div>
+                    <form action={"https://discord.com/oauth2/authorize?client_id=837857979486568458&permissions=8&scope=bot"}>
+                        <Button
+                            className={classes.sendBtn}
+                            type='submit'
+                        >
+                            Intive GeoBot
+                        </Button>
+                    </form>
                 </div>
             </Container>
             <Container ref={secondPageReferance} className={classes.pageBackground}>
