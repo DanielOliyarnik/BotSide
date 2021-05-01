@@ -247,6 +247,7 @@ body {
     color: ivory;
     position: relative;
     margin: 0;
+    padding-top: 10%;
     height: inherit;
     width: inherit;
     display: flex;
@@ -254,12 +255,12 @@ body {
     text-align: center;
     justify-content: center;
     overflow: visible;
-    font-size: 90px;
+    font-size: 35px;
     z-index: 100;
     transform-style: preserve-3d;
     -webkit-animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
     -moz-animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
-    animation: bannerintro-text 3.3s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @keyframes bannerintro-text {
@@ -268,17 +269,21 @@ body {
         padding-top: 45%;
         opacity: 0;
     }
-    50% {
+    35% {
         padding-top: 0%;
         opacity: 0.9;
     }
-    60% {
+    50% {
         font-size: 10px;
     }
-    100% {
+    70% {
         font-size: 90px;
         padding-top: 0%;
         opacity: 1;
+    }
+    100% {
+        font-size: 35px;
+        padding-top: 10%;
     }
 }
 

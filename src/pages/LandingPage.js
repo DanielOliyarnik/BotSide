@@ -6,6 +6,8 @@ import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
 import infoCloud from '../assets/Cloud.png';
 import infoArrow from '../assets/SocialArrow.png';
+import GeoLogo from '../assets/GeoBot.png';
+import GeoLogoArrow from '../assets/GeoBotArrowT.png';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
@@ -222,6 +224,45 @@ const useStyles = makeStyles((theme) => ({
             left: '12%',
         },
     },
+    geoLogo: {
+        position: 'relative', 
+        height: '80px', 
+        width: '90px',
+        margin: 0,
+    },
+    geoLogoArrow: {
+        position: 'relative',
+        margin: 0,
+        height: '80px', 
+        width: '10px',
+    },
+    logoWrapper: {
+        position: 'absolute', 
+        top: '3%', 
+        width: '100%',
+        height: '15%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        gap: '10px',
+        animation: `$logoWrapperAnimate 5.2s  ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes logoWrapperAnimate': {
+        '0%': {
+            opacity: 0,
+            gap: '100px',
+        },
+        '50%': {
+            opacity: 0,
+            gap: '100px',
+        },
+        '100%': {
+            opacity: 1,
+            gap: '10px',
+
+        }
+    },
 }));
 
 function LandingPage(props) {
@@ -249,6 +290,10 @@ function LandingPage(props) {
             <div id='stars3'></div>
             <Container className={classes.pageBackground}>
                 <div className={'page-1'}>
+                    <div className={classes.logoWrapper}>
+                        <img src={GeoLogo} className={classes.geoLogo} />
+                        <img src={GeoLogoArrow} className={classes.geoLogoArrow} />
+                    </div>
                     <Container className={classes.BannerContainer}>
                         <div className="banner-wrapper">
                             <h1 className="welcome-text">
