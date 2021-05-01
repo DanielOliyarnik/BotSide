@@ -51,6 +51,22 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    BannerContainer: {
+        position: 'relative',
+        top: '5%',
+        marginTop: 0,
+        marginLeft: '20%',
+        marginRight: '20%',
+        margin: 0,
+        padding: 0,
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        maxWidth: '60%',
+        height: '20vh',
+        zIndex: 1000,
+    },
     firstArrowBtn: {
         position: 'absolute',
         bottom: '8%',
@@ -88,6 +104,17 @@ function LandingPage(props) {
             <div id='stars3'></div>
             <Container className={classes.pageBackground}>
                 <div className={'page-1'}>
+                    <Container className={classes.BannerContainer}>
+                        <div className="banner-wrapper">
+                            <h1 className="welcome-text">
+                                GeoBot
+                            </h1>
+                                <svg className="svg-front">
+                                    <ellipse className="elip-front" cx="50%" cy="50%" rx="150" ry="50" />
+                                </svg>
+                            
+                        </div>
+                    </Container>
                     <div 
                         className={classes.firstArrowBtn}
                         onClick = {() => {

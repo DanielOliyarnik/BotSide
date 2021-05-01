@@ -188,4 +188,97 @@ body {
       transform: translateY(-2000px);
     }
   }
-  
+
+  .banner-wrapper {
+    position: relative;
+    width: 90%;
+    height: 15vh;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.svg-front {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    right:0%;
+    top: 0%;
+    overflow: visible;
+    position: absolute; 
+    z-index: -1;
+}
+
+.elip-front {
+    fill: none;
+    stroke: ivory;
+    stroke-width: 0;
+    -webkit-animation: bannerintro 3s cubic-bezier(0.19, 1, 0.22, 1);
+    -moz-animation: bannerintro 3s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: bannerintro 2.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes bannerintro {
+    0% {
+        stroke-width: 3px;
+        stroke-dasharray: 0, 950;
+        stroke-dashoffset: -50;
+        opacity: 0;
+    }
+   80% { 
+        stroke-width: 5px;
+        stroke-dasharray: 40, 40;
+        stroke-dashoffset: 300;
+        opacity: 1;
+   }
+   100% {
+        stroke-width: 3px;
+        stroke-dasharray: 400, 0;
+        stroke-dashoffset: 300;
+        opacity: 0;
+   }
+}
+
+.welcome-text {
+    color: ivory;
+    position: relative;
+    margin: 0;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    overflow: visible;
+    font-size: 100px;
+    z-index: 100;
+    transform-style: preserve-3d;
+    -webkit-animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
+    -moz-animation: bannerintro-text 4s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: bannerintro-text 3.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes bannerintro-text {
+    0% {
+        font-size: 10px;
+        padding-top: 45%;
+        opacity: 0;
+    }
+    50% {
+        padding-top: 0%;
+        opacity: 0.9;
+    }
+    60% {
+        font-size: 10px;
+    }
+    100% {
+        font-size: 100px;
+        padding-top: 0%;
+        opacity: 1;
+    }
+}
