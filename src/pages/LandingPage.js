@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
@@ -74,13 +74,17 @@ const useStyles = makeStyles((theme) => ({
     },
     firstArrowBtn: {
         position: 'absolute',
-        bottom: '8%',
-        left: '0%',
-        marginLeft: '50%',
-        marginRigth: '50%',
+        bottom: '0%',
+        marginLeft: '16%',
+        
+        display: 'flex',
         padding: 0,
-        width: '10%',
+        width: '20%',
         height: '8vh',
+        [theme.breakpoints.down('xs')]:{
+            marginLeft: '0%',
+            marginRight: '0%',
+        },
     },
     firstIntroTextWrapper: {
         position: 'absolute',
@@ -226,19 +230,19 @@ const useStyles = makeStyles((theme) => ({
     },
     geoLogo: {
         position: 'relative', 
-        height: '80px', 
+        height: '90px', 
         width: '90px',
         margin: 0,
     },
     geoLogoArrow: {
         position: 'relative',
         margin: 0,
-        height: '80px', 
+        height: '90px', 
         width: '10px',
     },
     logoWrapper: {
         position: 'absolute', 
-        top: '3%', 
+        top: '1%', 
         width: '100%',
         height: '15%',
         display: 'flex',
@@ -251,11 +255,11 @@ const useStyles = makeStyles((theme) => ({
     '@keyframes logoWrapperAnimate': {
         '0%': {
             opacity: 0,
-            gap: '100px',
+            gap: '70px',
         },
         '50%': {
             opacity: 0,
-            gap: '100px',
+            gap: '70px',
         },
         '100%': {
             opacity: 1,
@@ -263,12 +267,31 @@ const useStyles = makeStyles((theme) => ({
 
         }
     },
+    rootSlideShow: {
+        position: 'absolute',
+        width: '90%',
+        height: '80%',
+        paddingLeft: '5%',
+        display: 'flex',
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    radioWrapper: {
+        position: 'relative',
+        bottom: '-35%',
+    },
 }));
 
 function LandingPage(props) {
 
+    const [selectedValue, setSelectedValue] = React.useState('a');
     const secondPageReferance = useRef(null);
     const classes = useStyles();
+
+    const handleChange = (event) => {
+        setSelectedValue(event.target.value);
+      };
 
     window.addEventListener('scroll', () => {
         document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
@@ -339,8 +362,33 @@ function LandingPage(props) {
             </Container>
             <Container ref={secondPageReferance} className={classes.pageBackground}>
                 <div className={'page-2'}>
-                    <div className={classes.firstArrowBtn}>
-                        <ScrollBtn />
+                    <div className={classes.rootSlideShow}>
+                        <div className={classes.radioWrapper}>
+                            <Radio
+                                checked={selectedValue === 'a'}
+                                onChange={handleChange}
+                                value='a'
+                                name='radio-button'
+                                inputProps={{ 'aria-label': 'A' }}
+                            />
+                            <Radio
+                                checked={selectedValue === 'b'}
+                                onChange={handleChange}
+                                value="b"
+                                name='radio-button'
+                                inputProps={{ 'aria-label': 'B' }}
+                            />
+                            <Radio
+                                checked={selectedValue === 'c'}
+                                onChange={handleChange}
+                                value='c'
+                                name='radio-button'
+                                inputProps={{ 'aria-label': 'D' }}
+                            />
+                        </div>
+                        <div className={classes.firstArrowBtn}>
+                            <ScrollBtn />
+                        </div>
                     </div>
                 </div>
             </Container>
