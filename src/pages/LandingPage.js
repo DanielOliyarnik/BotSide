@@ -89,6 +89,9 @@ function LandingPage(props) {
                 </div>
             </Container>
             <Container className={classes.PageBackground}>
+                <div className={'page-2'}>
+                    
+                </div>
             </Container>
         </div>
     );
