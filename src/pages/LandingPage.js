@@ -55,17 +55,18 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'visible',
         backgroundColor: '#23272a', 
         borderRadius: 15,
+        top: '0%',
+        left: '0%',
         marginTop: 0,
         marginBottom: 0,
         marginLeft: 0,
         marginRight: 0,
         padding: 0,
-        width: '90%',
-        height: '90vh',
+        width: '100%',
+        height: '100%',
         zIndex: 2,
-        [theme.breakpoints.down('xs')]: {
-            width: '95%',
-        },
+        webkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
     },
 }));
 
@@ -83,9 +84,11 @@ function LandingPage(props) {
             <Container className={classes.DeepBackground}></Container>
             <div className='progress-bar'></div>
             <Container className={classes.PageBackground}>
-                <Paper className={classes.PageSlideBase1}>
+                <Container className={'page-wrapper'}>
+                    <Paper className={classes.PageSlideBase1}>
 
-                </Paper>
+                    </Paper>
+                </Container>
             </Container>
             <Container className={classes.PageBackground}>
             </Container>
