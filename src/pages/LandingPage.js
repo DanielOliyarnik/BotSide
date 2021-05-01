@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
@@ -17,13 +17,10 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
         top: 0,
         left: 0,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0,
         padding: 0,
+        margin: 0,
         maxWidth: '100%',
-        height: '300vh',
+        height: '302vh',
         zIndex: -100,
         display: 'flex',
         alignItems: 'center',
@@ -74,9 +71,17 @@ const useStyles = makeStyles((theme) => ({
     },
     firstArrowBtn: {
         position: 'absolute',
+        bottom: '5%',
+        marginLeft: '50%',
+        display: 'flex',
+        padding: 0,
+        width: '20%',
+        height: '8vh',
+    },
+    SecondArrowBtn: {
+        position: 'absolute',
         bottom: '0%',
         marginLeft: '16%',
-        
         display: 'flex',
         padding: 0,
         width: '20%',
@@ -281,12 +286,32 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         bottom: '-35%',
     },
+    secondContent: {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        backgroundImage: 'linear-gradient(to bottom right, #3490e0, rgba(255, 255, 255, 0.5))',
+        borderRadius: 15,
+        zIndex: 100,
+    },
+    secondContentWrapper: {
+        position: 'absolute',
+        marginBottom: '5%',
+        height: '70%',
+        width: '60%',
+        display: 'flex',
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 }));
 
 function LandingPage(props) {
 
     const [selectedValue, setSelectedValue] = React.useState('a');
     const secondPageReferance = useRef(null);
+    const thirdPageReferance = useRef(null);
     const classes = useStyles();
 
     const handleChange = (event) => {
@@ -297,12 +322,13 @@ function LandingPage(props) {
         document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
       }, false);
 
-    const goToSecondPage = () => {
+    const goToPage = (props) => {
         window.scrollTo({
-            top: secondPageReferance.current.offsetTop,
+            top: props.current.offsetTop,
             behavior: 'smooth'
         });
     }
+
 
     return(
         <div style={{margin: 0, padding: 0,}}>
@@ -331,7 +357,7 @@ function LandingPage(props) {
                     <div 
                         className={classes.firstArrowBtn}
                         onClick = {() => {
-                            goToSecondPage();
+                            goToPage(secondPageReferance);
                         }}
                     >
                         <ScrollBtn />
@@ -363,6 +389,29 @@ function LandingPage(props) {
             <Container ref={secondPageReferance} className={classes.pageBackground}>
                 <div className={'page-2'}>
                     <div className={classes.rootSlideShow}>
+                        <div className={classes.secondContentWrapper}>
+                            <Grow 
+                                in={selectedValue === 'a'}
+                                {...((selectedValue === 'a') ? { timeout: 1000 } : {})}
+                            >
+                                <Paper elevation={4} className={classes.secondContent}>
+                                </Paper>
+                            </Grow>
+                            <Grow 
+                                in={selectedValue === 'b'}
+                                {...((selectedValue === 'b') ? { timeout: 1000 } : {})}
+                            >
+                                <Paper elevation={4} className={classes.secondContent}>
+                                </Paper>
+                            </Grow>
+                            <Grow 
+                                in={selectedValue === 'c'}
+                                {...((selectedValue === 'c') ? { timeout: 1000 } : {})}
+                            >
+                                <Paper elevation={4} className={classes.secondContent}>
+                                </Paper>
+                            </Grow>
+                        </div>
                         <div className={classes.radioWrapper}>
                             <Radio
                                 checked={selectedValue === 'a'}
@@ -386,10 +435,20 @@ function LandingPage(props) {
                                 inputProps={{ 'aria-label': 'D' }}
                             />
                         </div>
-                        <div className={classes.firstArrowBtn}>
+                        <div 
+                            className={classes.SecondArrowBtn}
+                            onClick = {() => {
+                                goToPage(thirdPageReferance);
+                            }}
+                        >
                             <ScrollBtn />
                         </div>
                     </div>
+                </div>
+            </Container>
+            <Container ref={thirdPageReferance} className={classes.pageBackground}>
+                <div className={'page-3'}>
+
                 </div>
             </Container>
         </div>
