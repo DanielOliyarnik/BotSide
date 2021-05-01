@@ -1,0 +1,81 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.scroll-btn {
+    position: absolute;
+    width: 54px;
+    height: 48px;
+    bottom: 5%;
+    z-index: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    transform: rotate(180deg);
+    transition: 0.1s linear;
+    padding-bottom: 0%;
+}
+
+.scroll-btn:hover {
+    background-color: rgb(10, 55, 153);
+    opacity: 0.9;
+    border-radius: 90%;
+    padding-bottom: 0.5%;
+}
+
+.scroll-arrow {
+    position: relative;
+    top: 0%;
+    left: 0%;
+    background-color: rgb(29, 29, 24);
+    width: 8px;
+    height: 30px;
+    transition: 0.1s linear;
+}
+
+.scroll-arrow:nth-child(1) {
+    position: relative;
+    transform: rotate(65deg);
+    width: 5px;
+    height: 32px;
+    left: -9px;
+}
+
+.scroll-arrow:nth-child(2) {
+    transform: rotate(0deg);
+    width: 5px;
+    top: 5px;
+    height: 0px;
+}
+
+.scroll-arrow:nth-child(3) {
+    transform: rotate(-65deg);
+    width: 5px;
+    height: 32px;
+    left: 9px;
+}
+
+.scroll-btn:hover .scroll-arrow:nth-child(1) {
+    transform: rotate(-145deg);
+    width: 5px;
+    height: 15px;
+    left: 0px;
+}
+
+.scroll-btn:hover .scroll-arrow:nth-child(2) {
+    transform: rotate(0deg);
+    width: 5px;
+    top: 8px;
+    height: 32px;
+}
+
+.scroll-btn:hover .scroll-arrow:nth-child(3) {
+    transform: rotate(145deg);
+    width: 5px;
+    height: 15px;
+    left: 0px;
+}

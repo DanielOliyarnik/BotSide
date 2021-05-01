@@ -2,9 +2,10 @@ import React, { useState, useRef } from 'react';
 import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Divider, } from '@material-ui/core';
 import clsx from 'clsx';
 import './LandingPage.css';
+import ScrollBtn from '../components/ScrollToPage';
 
 const useStyles = makeStyles((theme) => ({
-    DeepBackground: {
+    deepBackground: {
         background: 'linear-gradient( 50deg, #0e21b0, #218237)',
         backgroundSize: '300% 300%',
         position: 'absolute',
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
             backgroundSize: '120% 200%',
         },
     },
-    PageBackground: {
+    pageBackground: {
         position: 'relative',
         overflow: 'hidden', 
         top: 0,
@@ -50,47 +51,58 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    PageSlideBase1: {
-        position: 'relative',
-        overflow: 'visible',
-        backgroundColor: '#23272a', 
-        borderRadius: 15,
-        top: '0%',
+    firstArrowBtn: {
+        position: 'absolute',
+        bottom: '8%',
         left: '0%',
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0,
+        marginLeft: '50%',
+        marginRigth: '50%',
         padding: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 2,
-        webkitBackfaceVisibility: "hidden",
-        backfaceVisibility: "hidden",
+        width: '10%',
+        height: '8vh',
     },
 }));
 
 function LandingPage(props) {
 
-
+    const secondPageReferance = useRef(null);
     const classes = useStyles();
 
     window.addEventListener('scroll', () => {
         document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
       }, false);
 
+    const goToSecondPage = () => {
+        window.scrollTo({
+            top: secondPageReferance.current.offsetTop,
+            behavior: 'smooth'
+        });
+    }
+
     return(
-        <div>
-            <Container className={classes.DeepBackground}></Container>
+        <div style={{margin: 0, padding: 0,}}>
+            <Container className={classes.deepBackground}></Container>
             <div className='progress-bar'></div>
-            <Container className={classes.PageBackground}>
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
+            <Container className={classes.pageBackground}>
                 <div className={'page-1'}>
-                    
+                    <div 
+                        className={classes.firstArrowBtn}
+                        onClick = {() => {
+                            goToSecondPage();
+                        }}
+                    >
+                        <ScrollBtn />
+                    </div>
                 </div>
             </Container>
-            <Container className={classes.PageBackground}>
+            <Container ref={secondPageReferance} className={classes.pageBackground}>
                 <div className={'page-2'}>
-                    
+                    <div className={classes.firstArrowBtn}>
+                        <ScrollBtn />
+                    </div>
                 </div>
             </Container>
         </div>
