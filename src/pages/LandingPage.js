@@ -10,7 +10,7 @@ import infoCloud from '../assets/cloudsmall.png';
 import infoArrow from '../assets/SocialArrow.png';
 import GeoLogo from '../assets/GeoBot.png';
 import GeoLogoArrow from '../assets/GeoBotArrowT.png';
-import database from '../fire';
+import database from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
