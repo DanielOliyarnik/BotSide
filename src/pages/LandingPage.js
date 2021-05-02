@@ -237,7 +237,7 @@ const useStyles = makeStyles((theme) => ({
     inviteBtn: {
         position: 'absolute',
         right: '15%',
-        bottom: '45%',
+        bottom: '40%',
         backgroundColor: '#0093BF',
         borderRadius: 3,
         border: 0,
@@ -726,7 +726,7 @@ const handleCancel = () => {
                             }}
                             type='submit'
                         >
-                            Intive GeoBot
+                            Invite GeoBot
                         </Button>
 
                 </div>
