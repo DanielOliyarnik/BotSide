@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, } from '@material-ui/core';
+import React, { useState, useRef, useEffect } from 'react';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, ListItemSecondaryAction, } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import infoCloud from '../assets/cloudsmall.png';
 import infoArrow from '../assets/SocialArrow.png';
 import GeoLogo from '../assets/GeoBot.png';
 import GeoLogoArrow from '../assets/GeoBotArrowT.png';
-import database from '../firebase';
+import firebase from '../firebase';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
@@ -562,6 +562,36 @@ const useStyles = makeStyles((theme) => ({
             bottom: '-15%',
         },
     },
+    secondIntroText1: {
+        position: 'absolute',
+        fontFamily: 'Segoe UI',
+        color: 'white',
+        wordWrap: 'break-word',
+        width: '90%',
+        top: '5%',
+        left: '2%',
+        fontSize: 24,
+        workWap: 'break-word',
+        fontWeight: 1000,
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 16
+        },
+    },
+    secondText1: {
+        position: 'absolute',
+        fontFamily: 'Segoe UI',
+        color: 'white',
+        wordWrap: 'break-word',
+        width: '90%',
+        top: '12%',
+        left: '2%',
+        fontSize: 18,
+        workWap: 'break-word',
+        fontWeight: 700,
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 10
+        },
+    }
 }));
 
 function LandingPage(props) {
@@ -570,18 +600,22 @@ function LandingPage(props) {
     const [newPost, setNewPost] = useState('');
     const [newRating, setNewRating] = useState(3);
     const [firstPostCounter, setFirstPostCounter] = useState(false);
-    const [comment, setComment] = useState([
-    {
-        message: "vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!",
-        rating: 0,
-        date: "",
-    },
-    {
-        message: "horrid!",
-        rating: 0,
-        date: "",
-    },
-]);
+    const [comment, setComment] = useState([]);
+    const ref = firebase.firestore().collection('comments');
+
+    function getComments() {
+        ref.onSnapshot((qSnap) => {
+            const comArr = [];
+            qSnap.forEach((com) => {
+                comArr.push(com.data());
+            });
+            setComment(comArr);
+        });
+    }
+
+    useEffect(() => {
+        getComments();
+    }, []);
 
     const secondPageReferance = useRef(null);
     const thirdPageReferance = useRef(null);
@@ -610,13 +644,14 @@ function LandingPage(props) {
 
         console.log(newPost);
 
-        console.log(newComment);
         setComment((prev) => [...prev, {['message']: newPost, ['rating']: `${newRating} ⭐`, ['date']: `${today} 📅`} ]);
+
         console.log(comment);
         setNewPost('');
         setNewRating(0);
         setNewCreatePost(false);
 
+        console.log(ref);
     }   
 
 const handleCancel = () => {
@@ -764,7 +799,9 @@ const handleCancel = () => {
                                 {...((selectedValue === 'a') ? { timeout: 1000 } : {})}
                             >
                                 <Paper elevation={4} className={classes.secondContent}>
-                                    <Typography>geo stuff</Typography>
+                                    <Typography className={classes.secondIntroText1}>Learn Geography.. While having fun!</Typography>
+                                    <Typography className={classes.secondText1}>GeoBot is essentially geoguessr for discord. Offering a wide range of fun and geologically educational games for either individuals or whole servers.</Typography>
+                                    
                                 </Paper>
                             </Grow>
                             <Grow 
