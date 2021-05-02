@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
@@ -481,14 +482,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     commentBtn: {
-        position: 'relative',
-        right: '0%',
-        bottom: '0%',
-        backgroundColor: '#1a588a',
+        position: 'absolute',
+        right: '4%',
+        bottom: '40%',
+        backgroundColor: '#3277e6',
         borderRadius: 3,
         border: 0,
         width: '10%',
-        height: '80%',
+        height: '60%',
         transition: '0.3s', 
         fontWeight: 700,
         fontFamily: 'Segoe UI',
@@ -500,9 +501,64 @@ const useStyles = makeStyles((theme) => ({
             color: 'white',
             backgroundColor: '#384396',
             fontWeight: 1000,
+            boxShadow: 'none',
         },
         [theme.breakpoints.down('xs')]:{
             fontSize: 10,
+        },
+    },
+    cancelBtn: {
+        position: 'absolute',
+        right: '4%',
+        bottom: '-8%',
+        backgroundColor: '#c91010',
+        borderRadius: 3,
+        border: 0,
+        width: '10%',
+        height: '45%',
+        transition: '0.3s', 
+        fontWeight: 700,
+        fontFamily: 'Segoe UI',
+        fontSize: 12,
+        color: 'black',
+        cursor: 'pointer',
+        boxShadow: '5px 5px 2px',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: '#384396',
+            fontWeight: 1000,
+            boxShadow: 'none',
+        },
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 10,
+        },
+    },
+    ratingBackground: {
+        position: 'absolute',
+        backgroundColor: '#494d54', 
+        borderRadius: 10,
+        bottom: '110%',
+        right: '40%',
+        height: '60%',
+        width: '30%',
+        boxShadow: '5px 5px 2px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        [theme.breakpoints.down('xs')]:{
+            width: '50%',
+            right: '35%',
+            height: '70%',
+        },
+    },
+    slider: {
+        position: 'absolute',
+        width: '90%',
+        bottom: '0%',
+        [theme.breakpoints.down('xs')]:{
+            width: '80%',
+            bottom: '-15%',
         },
     },
 }));
@@ -511,9 +567,8 @@ function LandingPage(props) {
     const [selectedValue, setSelectedValue] = useState('a');
     const [newCreatePost, setNewCreatePost] = useState(false);
     const [newPost, setNewPost] = useState('');
-    const [newRating, setNewRating] = useState(0);
+    const [newRating, setNewRating] = useState(3);
     const [firstPostCounter, setFirstPostCounter] = useState(false);
-    const [isRating, setIsRating] = useState(false);
     const [comment, setComment] = useState([
     {
         message: "vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!",
@@ -523,16 +578,6 @@ function LandingPage(props) {
     {
         message: "horrid!",
         rating: 0,
-        date: "",
-    },
-    {
-        message: "AUWUfl",
-        rating: 0,
-        date: "",
-    },
-    {
-        message: "penis",
-        rating: 100000000000000000000000000000000000000000000000000000000000000000000000000000000,
         date: "",
     },
 ]);
@@ -551,6 +596,10 @@ function LandingPage(props) {
         setSelectedValue(event.target.value);
       };
 
+    const handleRatingChange = (event, newValue) => {
+        setNewRating(newValue);
+    };
+
     const handleComment = (newComment) => {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -561,12 +610,18 @@ function LandingPage(props) {
         console.log(newPost);
 
         console.log(newComment);
-        setComment((prev) => [...prev, {['message']: newPost, ['rating']: newRating, ['date']: today} ]);
+        setComment((prev) => [...prev, {['message']: newPost, ['rating']: `${newRating} ⭐`, ['date']: `${today} 📅`} ]);
         console.log(comment);
         setNewPost('');
-        setIsRating(true);
+        setNewRating(0);
         setNewCreatePost(false);
     }   
+
+const handleCancel = () => {
+    setNewPost('');
+    setNewRating(0);
+    setNewCreatePost(false);
+};
 
     const sideSetRight = () => {
         if (selectedValue === 'a'){
@@ -592,6 +647,10 @@ function LandingPage(props) {
         if (!firstPostCounter) setFirstPostCounter(true);
         setNewCreatePost(true);
     };
+
+    function valuetext(value) {
+        return value;
+      }
 
     window.addEventListener('scroll', () => {
         document.body.style.setProperty('--scroll', window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
@@ -815,7 +874,6 @@ function LandingPage(props) {
                             value={newPost}
                             onChange={handlePostChange}
                         />
-                        
                         <Button
                             className={classes.commentBtn}
                             type='submit'
@@ -825,6 +883,30 @@ function LandingPage(props) {
                         >
                             Make Comment
                         </Button>
+                        <Button
+                            className={classes.cancelBtn}
+                            type='submit'
+                            onClick = {() => {
+                                handleCancel();
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <div className={classes.ratingBackground}>
+                            <Typography style={{ position: 'absolute', color: '#86888c', bottom: '45%', }}>Rating</Typography>
+                            <Slider
+                                className={classes.slider}
+                                value={newRating}
+                                onChange={handleRatingChange}
+                                getAriaValueText={valuetext}
+                                aria-labelledby="discrete-slider"
+                                valueLabelDisplay="auto"
+                                step={1}
+                                marks
+                                min={0}
+                                max={5}
+                            />
+                        </div>
                     </div>
                     </Paper>
                     <Fab 

@@ -35,7 +35,7 @@ body {
     opacity: 0;
     animation: show-up-man 1s linear;
      animation-play-state: paused;
-     animation-delay: calc(var(--scroll) * -3s);
+     animation-delay: calc(var(--scroll) * -3.5s);
      animation-iteration-count: 1;
      animation-fill-mode: both;
 }
@@ -58,6 +58,13 @@ body {
 @media (max-width: 780px) {
     .up-man {
         right: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    .up-man {
+        right: 30px;
+        transform: rotateX(180deg) scale(0.5);
     }
 }
   
