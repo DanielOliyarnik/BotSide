@@ -11,6 +11,10 @@ import infoArrow from '../assets/SocialArrow.png';
 import GeoLogo from '../assets/GeoBot.png';
 import GeoLogoArrow from '../assets/GeoBotArrowT.png';
 import firebase from '../firebase';
+import example1 from '../assets/example1.jpg';
+import example2 from '../assets/example2.jpg';
+import example3 from '../assets/example3.jpg';
+import cogs from '../assets/cogs.png';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
@@ -591,7 +595,64 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]:{
             fontSize: 10
         },
-    }
+    },
+    exampleLogo: {
+        position: 'absolute',
+        top: '5%',
+        left: '10%',
+        borderRadius: 3,
+        transform: 'scale(0.5)',
+        zIndex: 1,
+    },
+    example1: {
+        position: 'absolute',
+        top: '0%',
+        right: '5%',
+        boxShadow: '10px 10px 5px',
+        borderRadius: 3,
+        transform: 'scale(0.5)',
+        zIndex: 1,
+    },
+    example2: {
+        position: 'absolute',
+        top: '48%',
+        right: '20%',
+        boxShadow: '10px 10px 5px',
+        borderRadius: 3,
+        zIndex: 1,
+    },
+    example3: {
+        position: 'absolute',
+        top: '50%',
+        right: '35%',
+        boxShadow: '10px 10px 5px',
+        borderRadius: 3,
+        transform: 'scale(0.8)',
+        zIndex: 1,
+    },
+    cogs: {
+        position: 'absolute',
+        top: '-10%',
+        right: '-5%',
+        borderRadius: 3,
+        transform: 'scale(0.5)',
+        zIndex: 1,
+    },
+    ThirdIntroText1: {
+        position: 'absolute',
+        fontFamily: 'Segoe UI',
+        color: 'white',
+        wordWrap: 'break-word',
+        width: '90%',
+        top: '5%',
+        left: '2%',
+        fontSize: 34,
+        workWap: 'break-word',
+        fontWeight: 1000,
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 16
+        },
+    },
 }));
 
 function LandingPage(props) {
@@ -801,7 +862,10 @@ const handleCancel = () => {
                                 <Paper elevation={4} className={classes.secondContent}>
                                     <Typography className={classes.secondIntroText1}>Learn Geography.. While having fun!</Typography>
                                     <Typography className={classes.secondText1}>GeoBot is essentially geoguessr for discord. Offering a wide range of fun and geologically educational games for either individuals or whole servers.</Typography>
-                                    
+                                    <img src={example1} className={classes.example1} />
+                                    <img src={example2} className={classes.example2} />
+                                    <img src={example3} className={classes.example3} />
+                                    <img src={GeoLogo} className={classes.exampleLogo} />
                                 </Paper>
                             </Grow>
                             <Grow 
@@ -809,7 +873,10 @@ const handleCancel = () => {
                                 {...((selectedValue === 'b') ? { timeout: 1000 } : {})}
                             >
                                 <Paper elevation={4} className={classes.secondContent}>
-                                    <Typography>music stuff</Typography>
+                                <Typography className={classes.secondIntroText1}>More help than you think!</Typography>
+                                    <Typography className={classes.secondText1}>GeoBot also comes with a lot of very helpful and needed discord utilities, that could surly help out any discord server.</Typography>
+                                    <img src={GeoLogo} className={classes.exampleLogo} />
+                                    <img src={cogs} className={classes.cogs} />
                                 </Paper>
                             </Grow>
                             <Grow 
@@ -817,7 +884,10 @@ const handleCancel = () => {
                                 {...((selectedValue === 'c') ? { timeout: 1000 } : {})}
                             >
                                 <Paper elevation={4} className={classes.secondContent}>
-                                    <Typography>team/party stuff</Typography>
+                                    <Typography className={classes.secondIntroText1}>But!...</Typography>
+                                    <Typography className={classes.secondText1}>GeoBot is not only just a geoguessr clone, but is also shipped with music player features. No more needing to tell others in your voice channels to go to a youtube link just to enjoy a nice song... Now with GeoBot just simply paste the link to a youtube video into any chat and the bot will begin to play the song in the voice channel that you are in.</Typography>
+                                    <img src={GeoLogo} className={classes.exampleLogo} />
+
                                 </Paper>
                             </Grow>
                         </div>
@@ -857,6 +927,7 @@ const handleCancel = () => {
             </Container>
             <Container ref={thirdPageReferance} className={classes.pageBackground}>
                 <div className={'page-3'}>
+                    <Typography className={classes.ThirdIntroText1} >Let us know how you like the bot!</Typography>
                     <Paper 
                         className={classes.reviewBackground} 
                         elevation={15}
