@@ -379,11 +379,141 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: '12%',
         right: '8%',
-    }
+        cursor: 'pointer',
+        animation: `$editFabAnimation 0.6s  ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes editFabAnimation': {
+        '0%': {
+            opacity: 0,
+            transform: 'rotate(180deg)',
+            right: '4%',
+        },
+        '100%': {
+            opacity: 1,
+            transform: 'rotate(0deg)',
+            right: '8%',
+        }
+    },
+    editFabOff: {
+        position: 'absolute',
+        bottom: '12%',
+        transform: 'rotate(180deg)',
+        right: '4%',
+        cursor: 'pointer',
+        opacity: 0,
+        animation: `$editFabAnimationExit 0.6s  ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes editFabAnimationExit': {
+        '0%': {
+            opacity: 1,
+            transform: 'rotate(0deg)',
+            right: '8%',
+        },
+        '100%': {
+            opacity: 0,
+            transform: 'rotate(180deg)',
+            right: '4%',
+        }
+    },
+    newPostText: {
+        position: 'fixed',
+        bottom: '5%',
+        left: '6%',
+        width: '90%',
+        height: '10%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'left',
+        alignSelf: 'center',
+        gap: '1%',
+        animation: `$commentArea 0.6s  ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes commentArea': {
+        '0%': {
+            opacity: 0,
+            bottom: '-10%',
+        },
+        '100%': {
+            opacity: 1,
+            bottom: '5%',
+        }
+    },
+    newPostTextExit: {
+        position: 'fixed',
+        bottom: '-10%',
+        left: '6%',
+        width: '90%',
+        height: '10%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'left',
+        alignSelf: 'center',
+        gap: '1%',
+        opacity: 0,
+        animation: `$commentAreaExit 0.6s  ${theme.transitions.easing.easeInOut}`,
+    },
+    '@keyframes commentAreaExit': {
+        '0%': {
+            opacity: 1,
+            bottom: '5%',
+        },
+        '25%': {
+            bottom: '10%',
+        },
+        '100%': {
+            opacity: 0,
+            bottom: '-10%',
+        }
+    },
+    newPostTextNull: {
+        opacity: 0,
+        position: 'absolute',
+    },
+    textArea: {
+        position: 'relative',
+        backgroundColor: '#494d54', 
+        borderRadius: 10,
+        width: '85%', 
+        height: '105%',
+        boxShadow: '5px 5px 2px',
+        [theme.breakpoints.down('xs')]: {
+            width: '75%',  
+        },
+    },
+    commentBtn: {
+        position: 'relative',
+        right: '0%',
+        bottom: '0%',
+        backgroundColor: '#1a588a',
+        borderRadius: 3,
+        border: 0,
+        width: '10%',
+        height: '80%',
+        transition: '0.3s', 
+        fontWeight: 700,
+        fontFamily: 'Segoe UI',
+        fontSize: 12,
+        color: 'black',
+        cursor: 'pointer',
+        boxShadow: '5px 5px 2px',
+        '&:hover': {
+            color: 'white',
+            backgroundColor: '#384396',
+            fontWeight: 1000,
+        },
+        [theme.breakpoints.down('xs')]:{
+            fontSize: 10,
+        },
+    },
 }));
 
 function LandingPage(props) {
-    const [selectedValue, setSelectedValue] = React.useState('a');
+    const [selectedValue, setSelectedValue] = useState('a');
+    const [newCreatePost, setNewCreatePost] = useState(false);
+    const [newPost, setNewPost] = useState('');
+    const [newRating, setNewRating] = useState(0);
+    const [firstPostCounter, setFirstPostCounter] = useState(false);
+    const [isRating, setIsRating] = useState(false);
     const [comment, setComment] = useState([
     {
         message: "vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!",
@@ -413,9 +543,30 @@ function LandingPage(props) {
     
     const classes = useStyles();
 
+    const handlePostChange = ((event) => {
+        setNewPost(event.target.value);
+    });
+
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
       };
+
+    const handleComment = (newComment) => {
+        let today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+
+        console.log(newPost);
+
+        console.log(newComment);
+        setComment((prev) => [...prev, {['message']: newPost, ['rating']: newRating, ['date']: today} ]);
+        console.log(comment);
+        setNewPost('');
+        setIsRating(true);
+        setNewCreatePost(false);
+    }   
 
     const sideSetRight = () => {
         if (selectedValue === 'a'){
@@ -435,6 +586,11 @@ function LandingPage(props) {
         } else {
             setSelectedValue('c');
         }
+    };
+
+    const handleCreatePost = () => {
+        if (!firstPostCounter) setFirstPostCounter(true);
+        setNewCreatePost(true);
     };
 
     window.addEventListener('scroll', () => {
@@ -605,7 +761,7 @@ function LandingPage(props) {
                         className={classes.reviewBackground} 
                         elevation={15}
                     >    
-                        {comment.map((comment) => (
+                        {comment.map((com) => (
                             <Paper 
                                 elevation={5}
                                 style={{
@@ -620,30 +776,68 @@ function LandingPage(props) {
                                     gutterBottom
                                     style={{ color: "rgb(243, 243, 242)", overflowWrap: "breakWord", wordWrap: "breakWord", overflow: "visible" }}
                                 >
-                                    {comment.message}
+                                    {com.message}
                                 </Typography>
                                 <Typography 
                                     variant="body2" 
                                     color="textSecondary"
                                 >
-                                    {comment.rating}
+                                    {com.rating}
                                 </Typography>
                                 <Typography 
                                     variant="body2" 
                                     color="textSecondary"
                                 >
-                                    {comment.date}
+                                    {com.date}
                                 </Typography>
                             </Paper>
                         ))}
+                    <div className={clsx({[classes.newPostTextExit]:((!newCreatePost)&&(firstPostCounter))},{[classes.newPostText]:(newCreatePost)}, {[classes.newPostTextNull]:(!firstPostCounter)},)}>
+                        <TextField
+                            size="small"
+                            placeholder="Message"
+                            multiline
+                            rows='3'
+                            className={classes.textArea}
+                            inputProps={{
+                                style: {
+                                    color: "rgb(243, 243, 242)",
+                                    height: '100%',
+                                },
+                            }}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                    console.log("sending comment");
+                                    handleComment();
+                                }
+                            }}
+                            variant="outlined"
+                            value={newPost}
+                            onChange={handlePostChange}
+                        />
+                        
+                        <Button
+                            className={classes.commentBtn}
+                            type='submit'
+                            onClick = {() => {
+                                handleComment();
+                            }}
+                        >
+                            Make Comment
+                        </Button>
+                    </div>
                     </Paper>
                     <Fab 
-                        className={classes.editFab} 
+                        className={clsx({[classes.editFab]:(!newCreatePost)},{[classes.editFabOff]:(newCreatePost)},)} 
                         color="primary" 
                         aria-label="edit"
+                        onClick = {() => {
+                            handleCreatePost();
+                        }}
                     >
                         <EditIcon />
                     </Fab>
+
                 </div>
             </Container>
         </div>
