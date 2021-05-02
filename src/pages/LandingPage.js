@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
@@ -348,6 +349,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: 'linear-gradient(to bottom right, #3490e0, #217050)',
         borderRadius: 15,
         zIndex: 100,
+        bottom: '5%',
     },
     secondContentWrapper: {
         position: 'absolute',
@@ -373,11 +375,16 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
     },
+    editFab: {
+        position: 'absolute',
+        bottom: '12%',
+        right: '8%',
+    }
 }));
 
 function LandingPage(props) {
     const [selectedValue, setSelectedValue] = React.useState('a');
-    const [chat, setChat] = useState([
+    const [comment, setComment] = useState([
     {
         message: "vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!vary bad!",
         rating: 0,
@@ -594,44 +601,49 @@ function LandingPage(props) {
             </Container>
             <Container ref={thirdPageReferance} className={classes.pageBackground}>
                 <div className={'page-3'}>
-                <Paper 
-                    className={classes.reviewBackground} 
-                    elevation={15}
-                >
-                        
-                                {chat.map((message) => (
-                                <Paper 
-                                    elevation={5}
-                                    style={{
-                                        width: "98%",
-                                        backgroundColor: "#4b4f55",
-                                        marginBottom: 5,
-                                        padding: 10,
-                                    }}
+                    <Paper 
+                        className={classes.reviewBackground} 
+                        elevation={15}
+                    >    
+                        {comment.map((comment) => (
+                            <Paper 
+                                elevation={5}
+                                style={{
+                                    width: "98%",
+                                    backgroundColor: "#4b4f55",
+                                    marginBottom: 5,
+                                    padding: 10,
+                                }}
+                            >
+                                <Typography 
+                                    variant="subtitle1" 
+                                    gutterBottom
+                                    style={{ color: "rgb(243, 243, 242)", overflowWrap: "breakWord", wordWrap: "breakWord", overflow: "visible" }}
                                 >
-                                    <Typography 
-                                        variant="subtitle1" 
-                                        gutterBottom
-                                        style={{ color: "rgb(243, 243, 242)", overflowWrap: "breakWord", wordWrap: "breakWord", overflow: "visible" }}
-                                    >
-                                        {message.message}
-                                    </Typography>
-                                    <Typography 
-                                        variant="body2" 
-                                        color="textSecondary"
-                                    >
-                                        {message.rating}
-                                    </Typography>
-                                    <Typography 
-                                        variant="body2" 
-                                        color="textSecondary"
-                                    >
-                                        {message.date}
-                                    </Typography>
-                                </Paper>
-                                ))}
-
+                                    {comment.message}
+                                </Typography>
+                                <Typography 
+                                    variant="body2" 
+                                    color="textSecondary"
+                                >
+                                    {comment.rating}
+                                </Typography>
+                                <Typography 
+                                    variant="body2" 
+                                    color="textSecondary"
+                                >
+                                    {comment.date}
+                                </Typography>
+                            </Paper>
+                        ))}
                     </Paper>
+                    <Fab 
+                        className={classes.editFab} 
+                        color="primary" 
+                        aria-label="edit"
+                    >
+                        <EditIcon />
+                    </Fab>
                 </div>
             </Container>
         </div>
