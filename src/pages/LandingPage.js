@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
-import infoCloud from '../assets/Cloud.png';
+import infoCloud from '../assets/cloudsmall.png';
 import infoArrow from '../assets/SocialArrow.png';
 import GeoLogo from '../assets/GeoBot.png';
 import GeoLogoArrow from '../assets/GeoBotArrowT.png';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
-        background: 'linear-gradient( 50deg, #0e21b0, #218237)',
+        background: 'linear-gradient(55deg, #2A81E2, #2eb853)',
         backgroundSize: '300% 300%',
         position: 'absolute',
         overflow: 'hidden',
@@ -206,7 +206,7 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        transform: 'rotate(20deg)',
+        transform: 'rotate(15deg)',
         zIndex: 10,
         fontWeight: 1000,
         fontFamily: 'Segoe UI',
@@ -238,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         right: '15%',
         bottom: '45%',
-        backgroundColor: '#1a588a',
+        backgroundColor: '#0093BF',
         borderRadius: 3,
         border: 0,
         width: '200px',
@@ -251,7 +251,7 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         '&:hover': {
             color: 'white',
-            backgroundColor: '#384396',
+            backgroundColor: '#30ABE1',
             fontWeight: 1000,
         },
         [theme.breakpoints.down('xs')]:{
@@ -314,7 +314,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         transform: 'rotateY(180deg)',
         width: '10%',
-        height: '10%',
+        height: '50px',
         left: '5%',
         zIndex: 500,
         cursor: 'pointer',
@@ -328,7 +328,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         transform: 'rotateY(0deg)',
         width: '10%',
-        height: '10%',
+        height: '50px',
         right: '5%',
         zIndex: 500,
         cursor: 'pointer',
@@ -715,18 +715,20 @@ const handleCancel = () => {
                     </div>
                     <div className={classes.inforCloudWrapperWrapper}>
                         <Typography className={classes.infoCloudWrapper}>
-                            Learn More!
                             <img src={infoCloud} className={classes.infoCloud}/>
                         </Typography>
                     </div>
-                    <form action={"https://discord.com/oauth2/authorize?client_id=837857979486568458&permissions=8&scope=bot"}>
+            
                         <Button
                             className={classes.inviteBtn}
+                            onClick ={() => {
+                                window.location ='https://discord.com/api/oauth2/authorize?client_id=837857979486568458&permissions=8&scope=bot';
+                            }}
                             type='submit'
                         >
                             Intive GeoBot
                         </Button>
-                    </form>
+
                 </div>
             </Container>
             <Container ref={secondPageReferance} className={classes.pageBackground}>

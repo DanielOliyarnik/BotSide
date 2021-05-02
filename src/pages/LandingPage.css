@@ -412,7 +412,7 @@ body {
 
 .arrow-arrow {
     position: absolute;
-    background-color: rgb(247, 247, 240);
+    background-color: #bbbbbb;
     width: 8px;
     height: 30px;
     transition: 0.1s linear;
@@ -434,7 +434,7 @@ body {
 }
 
 .arrow-btn:hover .arrow-arrow {
-    background-color: rgb(134, 10, 51);
+    background-color: #ffffff;
 }
 
 
