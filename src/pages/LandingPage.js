@@ -15,6 +15,7 @@ import example1 from '../assets/example1.jpg';
 import example2 from '../assets/example2.jpg';
 import example3 from '../assets/example3.jpg';
 import cogs from '../assets/cogs.png';
+import playbutton from '../assets/playbutton.png';
 
 const useStyles = makeStyles((theme) => ({
     deepBackground: {
@@ -653,6 +654,15 @@ const useStyles = makeStyles((theme) => ({
             fontSize: 16
         },
     },
+    playbutton: {
+        position: 'absolute',
+        top: '5%',
+        right: '5%',
+        transform: 'scale(0.5)',
+        boxShadow: '10px 10px 5px',
+        borderRadius: 10000,
+        zIndex: 1,
+    },
 }));
 
 function LandingPage(props) {
@@ -887,7 +897,7 @@ const handleCancel = () => {
                                     <Typography className={classes.secondIntroText1}>But!...</Typography>
                                     <Typography className={classes.secondText1}>GeoBot is not only just a geoguessr clone, but is also shipped with music player features. No more needing to tell others in your voice channels to go to a youtube link just to enjoy a nice song... Now with GeoBot just simply paste the link to a youtube video into any chat and the bot will begin to play the song in the voice channel that you are in.</Typography>
                                     <img src={GeoLogo} className={classes.exampleLogo} />
-
+                                    <img src={playbutton} className={classes.playbutton} />
                                 </Paper>
                             </Grow>
                         </div>
