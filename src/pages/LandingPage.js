@@ -1,16 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, ListItemSecondaryAction, } from '@material-ui/core';
+import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
 import infoCloud from '../assets/cloudsmall.png';
-import infoArrow from '../assets/SocialArrow.png';
 import GeoLogo from '../assets/GeoBot.png';
 import GeoLogoArrow from '../assets/GeoBotArrowT.png';
-import firebase from '../firebase';
+import {app} from '../firebase';
 import example1 from '../assets/example1.jpg';
 import example2 from '../assets/example2.jpg';
 import example3 from '../assets/example3.jpg';
@@ -672,21 +669,7 @@ function LandingPage(props) {
     const [newRating, setNewRating] = useState(3);
     const [firstPostCounter, setFirstPostCounter] = useState(false);
     const [comment, setComment] = useState([]);
-    const ref = firebase.firestore().collection('comments');
-
-    function getComments() {
-        ref.onSnapshot((qSnap) => {
-            const comArr = [];
-            qSnap.forEach((com) => {
-                comArr.push(com.data());
-            });
-            setComment(comArr);
-        });
-    }
-
-    useEffect(() => {
-        getComments();
-    }, []);
+    const [count, setCount] = useState(3);
 
     const secondPageReferance = useRef(null);
     const thirdPageReferance = useRef(null);
@@ -706,7 +689,8 @@ function LandingPage(props) {
         setNewRating(newValue);
     };
 
-    const handleComment = (newComment) => {
+    const handleComment = async (newComment) => {
+        setCount(count+1);
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
         const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -715,15 +699,31 @@ function LandingPage(props) {
 
         console.log(newPost);
 
-        setComment((prev) => [...prev, {['message']: newPost, ['rating']: `${newRating} ⭐`, ['date']: `${today} 📅`} ]);
+        setComment((prev) => [...prev, {['message']: newPost, ['rating']: `${newRating} ⭐`, ['date']: `${today} 📅`}]);
 
         console.log(comment);
         setNewPost('');
         setNewRating(0);
         setNewCreatePost(false);
-
-        console.log(ref);
-    }   
+  
+      var db = app.database();
+      var postData = {
+        message: newPost, 
+        rating: `${newRating} ⭐`, 
+        date: `${today} 📅`,
+      };
+      var newPostKey = db
+        .ref('comments')
+        .child(`comment${count}`)
+        .push().key;
+      var updates = {};
+      updates[newPostKey] = postData;
+      console.log(count)
+      return db
+        .ref('comments')
+        .child(`comment${count}`)
+        .update(updates).then(console.log('nice')); 
+    }
 
 const handleCancel = () => {
     setNewPost('');
