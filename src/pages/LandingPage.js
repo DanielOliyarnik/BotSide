@@ -702,8 +702,8 @@ function LandingPage(props) {
         setSelectedValue(event.target.value);
       };
 
-    const handleRatingChange = (event) => {
-        setNewRating(event.target.value);
+    const handleRatingChange = (event, newValue) => {
+        setNewRating(newValue);
     };
 
     const handleComment = () => {
