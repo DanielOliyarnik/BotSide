@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
@@ -669,23 +669,24 @@ function LandingPage(props) {
     const [newRating, setNewRating] = useState(3);
     const [firstPostCounter, setFirstPostCounter] = useState(false);
     const [comment, setComment] = useState();
-    const [count, setCount] = useState(3);
+    const [count, setCount] = useState(1);
 
     const secondPageReferance = useRef(null);
     const thirdPageReferance = useRef(null);
     const firstPageReferance = useRef(null);
     
     const classes = useStyles();
-    useEffect(() => {
+    useLayoutEffect(() => {
         const getCommentsRef = app.database().ref('comments');
         const commentList = []
         getCommentsRef.on('value', (snapshot) => {
-            const preList = snapshot.val();
+            const preList = (snapshot.val()).commentIndividual;
             console.log(preList);
-            (Object.entries(preList)).map((com) => {
+            (Object.values(preList)).forEach((com) => {
                 commentList.push(com);
+                setComment(commentList);
             });
-            setComment(commentList);
+            console.log(comment);
         });
     }, []);
 
@@ -701,7 +702,7 @@ function LandingPage(props) {
         setNewRating(newValue);
     };
 
-    const handleComment = async () => {
+    const handleComment = () => {
         setCount(count+1);
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
