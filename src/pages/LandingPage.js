@@ -668,7 +668,7 @@ function LandingPage(props) {
     const [newPost, setNewPost] = useState('');
     const [newRating, setNewRating] = useState(3);
     const [firstPostCounter, setFirstPostCounter] = useState(false);
-    const [comment, setComment] = useState([]);
+    const [comment, setComment] = useState();
     const [count, setCount] = useState(3);
 
     const secondPageReferance = useRef(null);
@@ -676,6 +676,17 @@ function LandingPage(props) {
     const firstPageReferance = useRef(null);
     
     const classes = useStyles();
+
+    useEffect(() => {
+        const getCommentsRef = app.database().ref('comments');
+        const commentList = []
+        getCommentsRef.on('value', (snapshot) => {
+            (snapshot.val()).map((com) => {
+                commentList.push(com);
+            });
+            setComment(commentList);
+        });
+    }, []);
 
     const handlePostChange = ((event) => {
         setNewPost(event.target.value);
@@ -689,7 +700,7 @@ function LandingPage(props) {
         setNewRating(newValue);
     };
 
-    const handleComment = async (newComment) => {
+    const handleComment = async () => {
         setCount(count+1);
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -700,29 +711,26 @@ function LandingPage(props) {
         console.log(newPost);
 
         setComment((prev) => [...prev, {['message']: newPost, ['rating']: `${newRating} ⭐`, ['date']: `${today} 📅`}]);
-
         console.log(comment);
-        setNewPost('');
-        setNewRating(0);
-        setNewCreatePost(false);
-  
-      var db = app.database();
-      var postData = {
+        console.log(count)
+
+      var database = app.database();
+      var newCommentData = {
         message: newPost, 
         rating: `${newRating} ⭐`, 
         date: `${today} 📅`,
       };
-      var newPostKey = db
+      var newCommentKey = database.ref('comments').child(`comment${count}`).push().key;
+      var newCommentOb = {};
+      newCommentOb[newCommentKey] = newCommentData;
+        setNewPost('');
+        setNewRating(0);
+        setNewCreatePost(false);
+        setCount(count+1);
+      return database
         .ref('comments')
         .child(`comment${count}`)
-        .push().key;
-      var updates = {};
-      updates[newPostKey] = postData;
-      console.log(count)
-      return db
-        .ref('comments')
-        .child(`comment${count}`)
-        .update(updates).then(console.log('nice')); 
+        .update(newCommentOb).then(console.log('nice')); 
     }
 
 const handleCancel = () => {
@@ -942,7 +950,7 @@ const handleCancel = () => {
                         className={classes.reviewBackground} 
                         elevation={15}
                     >    
-                        {comment.map((com) => (
+                        { comment && (comment.map((com) => (
                             <Paper 
                                 elevation={5}
                                 style={{
@@ -972,7 +980,7 @@ const handleCancel = () => {
                                     {com.date}
                                 </Typography>
                             </Paper>
-                        ))}
+                        )))}
                     <div className={clsx({[classes.newPostTextExit]:((!newCreatePost)&&(firstPostCounter))},{[classes.newPostText]:(newCreatePost)}, {[classes.newPostTextNull]:(!firstPostCounter)},)}>
                         <TextField
                             size="small"
