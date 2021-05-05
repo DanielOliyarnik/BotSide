@@ -676,12 +676,13 @@ function LandingPage(props) {
     const firstPageReferance = useRef(null);
     
     const classes = useStyles();
-
     useEffect(() => {
         const getCommentsRef = app.database().ref('comments');
         const commentList = []
         getCommentsRef.on('value', (snapshot) => {
-            (snapshot.val()).map((com) => {
+            const preList = snapshot.val();
+            console.log(preList);
+            (Object.entries(preList)).map((com) => {
                 commentList.push(com);
             });
             setComment(commentList);
@@ -720,17 +721,14 @@ function LandingPage(props) {
         rating: `${newRating} ⭐`, 
         date: `${today} 📅`,
       };
-      var newCommentKey = database.ref('comments').child(`comment${count}`).push().key;
+      var newCommentKey = database.ref('comments').child(`commentIndividual`).push().key;
       var newCommentOb = {};
       newCommentOb[newCommentKey] = newCommentData;
         setNewPost('');
         setNewRating(0);
         setNewCreatePost(false);
         setCount(count+1);
-      return database
-        .ref('comments')
-        .child(`comment${count}`)
-        .update(newCommentOb).then(console.log('nice')); 
+      return database.ref('comments').child(`commentIndividual`).update(newCommentOb).then(console.log('nice')); 
     }
 
 const handleCancel = () => {
