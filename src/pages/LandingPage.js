@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, } from 'react';
 import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
@@ -674,21 +674,25 @@ function LandingPage(props) {
     const secondPageReferance = useRef(null);
     const thirdPageReferance = useRef(null);
     const firstPageReferance = useRef(null);
-    
+    const commentList = [];
+
     const classes = useStyles();
-    useLayoutEffect(() => {
+    const getComments = () => { 
         const getCommentsRef = app.database().ref('comments');
-        const commentList = []
+        
         getCommentsRef.on('value', (snapshot) => {
             const preList = (snapshot.val()).commentIndividual;
             console.log(preList);
             (Object.values(preList)).forEach((com) => {
-                commentList.push(com);
-                setComment(commentList);
+                    commentList.push(com);
+                    console.log(commentList);
             });
-            console.log(comment);
+            setComment(commentList);
         });
-    }, []);
+    }
+    window.onload = function() {
+        getComments();
+    };
 
     const handlePostChange = ((event) => {
         setNewPost(event.target.value);
@@ -698,8 +702,8 @@ function LandingPage(props) {
         setSelectedValue(event.target.value);
       };
 
-    const handleRatingChange = (event, newValue) => {
-        setNewRating(newValue);
+    const handleRatingChange = (event) => {
+        setNewRating(event.target.value);
     };
 
     const handleComment = () => {
@@ -712,8 +716,8 @@ function LandingPage(props) {
 
         console.log(newPost);
 
-        setComment((prev) => [...prev, {['message']: newPost, ['rating']: `${newRating} ⭐`, ['date']: `${today} 📅`}]);
-        console.log(comment);
+        commentList.push({'message': newPost, 'rating': `${newRating} ⭐`, 'date': `${today} 📅`});
+ 
         console.log(count)
 
       var database = app.database();
@@ -949,6 +953,7 @@ const handleCancel = () => {
                         className={classes.reviewBackground} 
                         elevation={15}
                     >    
+
                         { comment && (comment.map((com) => (
                             <Paper 
                                 elevation={5}
