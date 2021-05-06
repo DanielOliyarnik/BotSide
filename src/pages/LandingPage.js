@@ -8,9 +8,7 @@ import infoCloud from '../assets/cloudsmall.png';
 import GeoLogo from '../assets/GeoBot.png';
 import GeoLogoArrow from '../assets/GeoBotArrowT.png';
 import {app} from '../firebase';
-import example1 from '../assets/example1.jpg';
-import example2 from '../assets/example2.jpg';
-import example3 from '../assets/example3.jpg';
+import showCase from '../assets/Showcase.png';
 import cogs from '../assets/cogs.png';
 import playbutton from '../assets/playbutton.png';
 
@@ -596,37 +594,36 @@ const useStyles = makeStyles((theme) => ({
     },
     exampleLogo: {
         position: 'absolute',
-        top: '5%',
-        left: '10%',
+        top: '25%',
+        left: '20%',
         borderRadius: 3,
-        transform: 'scale(0.5)',
+        width: '22%',
+        hight: '22%',
         zIndex: 1,
+        [theme.breakpoints.down('xs')]:{
+            top: '30%',
+        },
+        [theme.breakpoints.down('sm')]:{
+            top: '30%',
+        },
     },
-    example1: {
+    showCase: {
         position: 'absolute',
-        top: '0%',
-        right: '5%',
-        boxShadow: '10px 10px 5px',
-        borderRadius: 3,
-        transform: 'scale(0.5)',
-        zIndex: 1,
-    },
-    example2: {
-        position: 'absolute',
-        top: '48%',
-        right: '20%',
-        boxShadow: '10px 10px 5px',
-        borderRadius: 3,
-        zIndex: 1,
-    },
-    example3: {
-        position: 'absolute',
-        top: '50%',
-        right: '35%',
-        boxShadow: '10px 10px 5px',
-        borderRadius: 3,
+        top: '20%',
+        right: '10%',
+        borderRadius: 10,
         transform: 'scale(0.8)',
         zIndex: 1,
+        [theme.breakpoints.down('xs')]:{
+            top: '30%',
+            right: '-40%',
+            transform: 'scale(0.4)',
+        },
+        [theme.breakpoints.down('sm')]:{
+            top: '30%',
+            right: '0%', 
+            transform: 'scale(0.7)',
+        },
     },
     cogs: {
         position: 'absolute',
@@ -635,6 +632,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 3,
         transform: 'scale(0.5)',
         zIndex: 1,
+
     },
     ThirdIntroText1: {
         position: 'absolute',
@@ -679,7 +677,6 @@ function LandingPage(props) {
     const classes = useStyles();
     const getComments = () => { 
         const getCommentsRef = app.database().ref('comments');
-        
         getCommentsRef.on('value', (snapshot) => {
             const preList = (snapshot.val()).commentIndividual;
             console.log(preList);
@@ -717,6 +714,7 @@ function LandingPage(props) {
         console.log(newPost);
 
         commentList.push({'message': newPost, 'rating': `${newRating} ⭐`, 'date': `${today} 📅`});
+        setComment(commentList);
  
         console.log(count)
 
@@ -883,10 +881,10 @@ const handleCancel = () => {
                                 <Paper elevation={4} className={classes.secondContent}>
                                     <Typography className={classes.secondIntroText1}>Learn Geography.. While having fun!</Typography>
                                     <Typography className={classes.secondText1}>GeoBot is essentially geoguessr for discord. Offering a wide range of fun and geologically educational games for either individuals or whole servers.</Typography>
-                                    <img src={example1} className={classes.example1} />
-                                    <img src={example2} className={classes.example2} />
-                                    <img src={example3} className={classes.example3} />
+                                    <Paper className={classes.f}>
+                                    <img src={showCase} className={classes.showCase} />
                                     <img src={GeoLogo} className={classes.exampleLogo} />
+                                    </Paper>
                                 </Paper>
                             </Grow>
                             <Grow 
