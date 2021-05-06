@@ -1,6 +1,10 @@
 import React, { useState, useRef, } from 'react';
-import { makeStyles, Container, Typography, Paper, TextField, Button, Fab, Grid, Radio, Grow, Slider, } from '@material-ui/core';
+import { makeStyles, useTheme, Container, Typography, Paper, TextField, Button, Fab, Radio, Grow, Slider, Card, CardContent, CardMedia, } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
 import clsx from 'clsx';
 import './LandingPage.css';
 import ScrollBtn from '../components/ScrollToPage';
@@ -347,6 +351,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         height: '100%',
         width: '100%',
+        left: '0%',
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
         backgroundImage: 'linear-gradient(to bottom right, #3490e0, #217050)',
         borderRadius: 15,
@@ -358,6 +363,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '5%',
         height: '70%',
         width: '80%',
+        left: '10%',
         display: 'flex',
         alignContent: 'center',
         alignItems: 'center',
@@ -616,10 +622,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 1,
         [theme.breakpoints.down('xs')]:{
             top: '30%',
-            right: '-40%',
+            right: '-20%',
             transform: 'scale(0.4)',
         },
-        [theme.breakpoints.down('sm')]:{
+        [theme.breakpoints.between('sm', 'md')]:{
             top: '30%',
             right: '0%', 
             transform: 'scale(0.7)',
@@ -632,7 +638,17 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 3,
         transform: 'scale(0.5)',
         zIndex: 1,
-
+        [theme.breakpoints.down('xs')]:{
+            top: '10%',
+            right: '-100%', 
+            transform: 'scale(0.2)',
+            zIndex: 1,
+        },
+        [theme.breakpoints.between('sm', 'md')]:{
+            top: '5%',
+            right: '-50%', 
+            transform: 'scale(0.3)',
+        },
     },
     ThirdIntroText1: {
         position: 'absolute',
@@ -649,14 +665,38 @@ const useStyles = makeStyles((theme) => ({
             fontSize: 16
         },
     },
-    playbutton: {
+    musicCard: {
+        display: 'flex',
+        flexDirection: 'rows',
         position: 'absolute',
-        top: '5%',
-        right: '5%',
-        transform: 'scale(0.5)',
-        boxShadow: '10px 10px 5px',
-        borderRadius: 10000,
+        top: '35%',
+        right: '15%',
         zIndex: 1,
+        boxShadow: '10px 10px 5px',
+    },
+    details: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    content: {
+        flex: '1 0 auto',
+    },
+    songWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    songCover: {
+        width: 165,
+    },
+    controls: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+    },
+    playIcon: {
+        height: 38,
+        width: 38,
     },
 }));
 
@@ -673,8 +713,9 @@ function LandingPage(props) {
     const thirdPageReferance = useRef(null);
     const firstPageReferance = useRef(null);
     const commentList = [];
-
     const classes = useStyles();
+    const theme = useTheme();
+
     const getComments = () => { 
         const getCommentsRef = app.database().ref('comments');
         getCommentsRef.on('value', (snapshot) => {
@@ -881,10 +922,8 @@ const handleCancel = () => {
                                 <Paper elevation={4} className={classes.secondContent}>
                                     <Typography className={classes.secondIntroText1}>Learn Geography.. While having fun!</Typography>
                                     <Typography className={classes.secondText1}>GeoBot is essentially geoguessr for discord. Offering a wide range of fun and geologically educational games for either individuals or whole servers.</Typography>
-                                    <Paper className={classes.f}>
                                     <img src={showCase} className={classes.showCase} />
                                     <img src={GeoLogo} className={classes.exampleLogo} />
-                                    </Paper>
                                 </Paper>
                             </Grow>
                             <Grow 
@@ -906,7 +945,34 @@ const handleCancel = () => {
                                     <Typography className={classes.secondIntroText1}>But!...</Typography>
                                     <Typography className={classes.secondText1}>GeoBot is not only just a geoguessr clone, but is also shipped with music player features. No more needing to tell others in your voice channels to go to a youtube link just to enjoy a nice song... Now with GeoBot just simply paste the link to a youtube video into any chat and the bot will begin to play the song in the voice channel that you are in.</Typography>
                                     <img src={GeoLogo} className={classes.exampleLogo} />
-                                    <img src={playbutton} className={classes.playbutton} />
+                                    <Card className={classes.musicCard}>
+                                        <div className={classes.details}>
+                                            <CardContent className={classes.content}>
+                                                <Typography component="h5" variant="h5">
+                                                    Some song
+                                                </Typography>
+                                                <Typography variant="subtitle1" color="textSecondary">
+                                                    Some artist
+                                                </Typography>
+                                            </CardContent>
+                                            <div className={classes.controls}>
+                                                <IconButton aria-label="previous">
+                                                    {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+                                                </IconButton>
+                                                <IconButton aria-label="play/pause">
+                                                    <PlayArrowIcon className={classes.playIcon} />
+                                                </IconButton>
+                                                <IconButton aria-label="next">
+                                                    {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+                                                </IconButton>
+                                            </div>
+                                        </div>
+                                        <CardMedia
+                                                className={classes.songCover}
+                                                image={playbutton}
+                                                title='some song'
+                                            /> 
+                                    </Card>
                                 </Paper>
                             </Grow>
                         </div>
