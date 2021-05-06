@@ -613,6 +613,21 @@ const useStyles = makeStyles((theme) => ({
             top: '30%',
         },
     },
+    exampleLogo2: {
+        position: 'absolute',
+        top: '30%',
+        left: '20%',
+        borderRadius: 3,
+        width: '22%',
+        hight: '22%',
+        zIndex: 1,
+        [theme.breakpoints.down('xs')]:{
+            top: '30%',
+        },
+        [theme.breakpoints.down('sm')]:{
+            top: '50%',
+        },
+    },
     showCase: {
         position: 'absolute',
         top: '20%',
@@ -649,6 +664,7 @@ const useStyles = makeStyles((theme) => ({
             right: '-50%', 
             transform: 'scale(0.3)',
         },
+        
     },
     ThirdIntroText1: {
         position: 'absolute',
@@ -673,6 +689,16 @@ const useStyles = makeStyles((theme) => ({
         right: '15%',
         zIndex: 1,
         boxShadow: '10px 10px 5px',
+        [theme.breakpoints.down('xs')]:{
+            top: '65%',
+            right: '0%',
+            transform: 'scale(0.5)',
+        },
+        [theme.breakpoints.between('sm', 'md')]:{
+            top: '50%',
+            right: '0%', 
+            transform: 'scale(0.5)',
+        },
     },
     details: {
         display: 'flex',
@@ -944,7 +970,7 @@ const handleCancel = () => {
                                 <Paper elevation={4} className={classes.secondContent}>
                                     <Typography className={classes.secondIntroText1}>But!...</Typography>
                                     <Typography className={classes.secondText1}>GeoBot is not only just a geoguessr clone, but is also shipped with music player features. No more needing to tell others in your voice channels to go to a youtube link just to enjoy a nice song... Now with GeoBot just simply paste the link to a youtube video into any chat and the bot will begin to play the song in the voice channel that you are in.</Typography>
-                                    <img src={GeoLogo} className={classes.exampleLogo} />
+                                    <img src={GeoLogo} className={classes.exampleLogo2} />
                                     <Card className={classes.musicCard}>
                                         <div className={classes.details}>
                                             <CardContent className={classes.content}>
